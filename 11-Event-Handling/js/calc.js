@@ -5,6 +5,8 @@ const number2 = document.querySelector("#number2");
 
 const result = document.querySelector("#result");
 
+const buttons = document.querySelectorAll("div#calculator > button");
+
 const calculate = (e) => {
     const operator = e.target.innerText;
 
@@ -29,3 +31,5 @@ const calculate = (e) => {
     }
 }
 
+// listens for a 'click' event on each button -> calling the calculate function when triggered
+buttons.forEach(button => button.addEventListener('click', calculate));

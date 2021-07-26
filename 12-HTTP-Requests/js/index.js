@@ -28,33 +28,48 @@ const getAllKittens = () => {
     }).catch(err => console.log(err));
 }
 
-const renderKitten = (kitten, outputDiv) => {
-    const newKitten = document.createElement('div');
+const renderKitten = (kitten, outputDiv) => {   
+    const kittenColumn = document.createElement('div');
+    kittenColumn.classList.add("col");
 
+    const kittenCard = document.createElement('div');
+    kittenCard.classList.add("card");
+    kittenColumn.appendChild(kittenCard);
+
+    const newKitten = document.createElement('div');
+    newKitten.classList.add("card-body");
+    
     const kittenName = document.createElement("h3");
     kittenName.innerText = kitten.name;
+    kittenName.classList.add("card-title");
     newKitten.appendChild(kittenName);
+
 
     const kittenAge = document.createElement("p");
     kittenAge.innerText = `Age: ${kitten.age}`;
+    kittenAge.classList.add("card-text");
     newKitten.appendChild(kittenAge);
 
     const kittenBreed = document.createElement("p");
     kittenBreed.innerText = `Breed: ${kitten.breed}`; 
+    kittenBreed.classList.add("card-text");
     newKitten.appendChild(kittenBreed);
 
     const kittenCuteness = document.createElement("p");
     kittenCuteness.innerText = `Cuteness: ${kitten.cuteness}`; 
+    kittenCuteness.classList.add("card-text");
     newKitten.appendChild(kittenCuteness);
 
     const deleteButton = document.createElement('button');
     deleteButton.innerText = "DELETE";
-
+    deleteButton.classList.add("btn", "btn-primary");
     deleteButton.addEventListener('click', () => deleteKitten(kitten.id));
 
     newKitten.appendChild(deleteButton);
 
-    outputDiv.appendChild(newKitten);
+    kittenCard.appendChild(newKitten);
+
+    outputDiv.appendChild(kittenColumn);
 }
 
 const deleteKitten = id => {
@@ -78,9 +93,6 @@ document.querySelector("section#getByIdSection > button").addEventListener('clic
 
 document.querySelector("section#postSection > form").addEventListener('submit', (e) => {
     e.preventDefault(); // stops the form submitting in the default way
-
-    console.log("THIS: ", this);
-    console.log("BREED: ", this.breed);
 
     const form = e.target;
 

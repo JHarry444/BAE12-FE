@@ -46,7 +46,22 @@ const renderKitten = (kitten, outputDiv) => {
     kittenCuteness.innerText = `Cuteness: ${kitten.cuteness}`; 
     newKitten.appendChild(kittenCuteness);
 
+    const deleteButton = document.createElement('button');
+    deleteButton.innerText = "DELETE";
+
+    deleteButton.addEventListener('click', () => deleteKitten(kitten.id));
+    
+    newKitten.appendChild(deleteButton);
+
     outputDiv.appendChild(newKitten);
+}
+
+const deleteKitten = id => {
+    axios.delete(`${baseURL}/deleteKitten/${id}`)
+        .then(res => {
+            console.log(res);
+            getAllKittens();
+        }).catch(err => console.log(err));
 }
 
 const getKittenById = () => {
@@ -86,6 +101,5 @@ document.querySelector("section#postSection > form").addEventListener('submit', 
         form.name.focus(); // selects the name input
     }).catch(err => console.log(err));
 });
-
 
 getAllKittens();

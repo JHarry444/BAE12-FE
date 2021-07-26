@@ -1,5 +1,6 @@
 "use strict";
 
+(function() {
 const baseURL = "http://localhost:8080";
 
 axios.get(`${baseURL}/`)
@@ -50,7 +51,7 @@ const renderKitten = (kitten, outputDiv) => {
     deleteButton.innerText = "DELETE";
 
     deleteButton.addEventListener('click', () => deleteKitten(kitten.id));
-    
+
     newKitten.appendChild(deleteButton);
 
     outputDiv.appendChild(newKitten);
@@ -103,3 +104,5 @@ document.querySelector("section#postSection > form").addEventListener('submit', 
 });
 
 getAllKittens();
+
+})();

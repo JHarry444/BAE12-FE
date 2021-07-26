@@ -1,0 +1,59 @@
+h1 {
+    color: purple;
+}
+
+h1 {
+    color: pink;
+}
+
+article {
+    color: yellow !important;
+}
+
+main > section {
+    color: brown;
+}
+
+body section {
+    color: green;
+}
+
+section {
+    color: red;
+}
+
+body > p {
+     color: blueviolet;
+ }
+
+h2#exampleId {
+    color:gold;
+}
+
+p.myParagraph {
+    color: orange;
+    font-weight: bold;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: red;
+    text-decoration: underline;
+}
+
+a:visited {
+    color: black;
+}
+
+article {
+    border: 5px dotted red;
+    background-color: blue;
+}
+
+button#boxDemo {
+    padding: 20px 20px 20px 20px;
+    margin: 30px;
+}

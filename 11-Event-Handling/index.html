@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Handling</title>
+</head>
+<body>
+    <h1>Bloop</h1>
+    <button onclick="hello();">Greetings</button>
+    <br>
+    <br>
+
+    <div>
+        <label for="count">Count: </label>
+        <input id="count" type="text" readonly value="0">
+        <br>
+        <br>
+        <button onclick="modifyCount(event)">-5</button>
+        <button onclick="modifyCount(event)">-1</button>
+        <button onclick="modifyCount(event)">Reset</button>
+        <button onclick="modifyCount(event)">+1</button>
+        <button onclick="modifyCount(event)">+5</button>
+    </div>
+    <br>
+    <br>
+    <div>
+        <label for="input">Input: </label>
+        <input id="input" oninput="copyText(event);" type="text">
+        <br>
+        <br>
+        <label for="output">Copy: </label>
+        <input id="output" readonly type="text">
+    </div>
+    <br>
+    <br>
+    <div>
+        <label for="miles">Miles: </label>
+        <input id="miles" oninput="convertMiles(event);" type="number" value="0" min="0">
+        <br>
+        <br>
+        <label for="kms">KM: </label>
+        <input id="kms"  oninput="convertKMs(event);" type="number" value="0" min="0">
+    </div>
+    <script src="js/index.js"></script>
+</body>
+</html>

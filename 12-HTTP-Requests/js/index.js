@@ -16,7 +16,8 @@ const getByIdOutput = document.querySelector("#getByIdOutput");
 
 const kittenId = document.querySelector("#kittenId");
 
-axios.get(`${baseURL}/getAllKittens`)
+const getAllKittens = () => {
+    axios.get(`${baseURL}/getAllKittens`)
     .then(res => {
         const kittens = res.data;
 
@@ -24,7 +25,7 @@ axios.get(`${baseURL}/getAllKittens`)
 
         kittens.forEach(kitten => renderKitten(kitten, getAllOutput));
     }).catch(err => console.log(err));
-
+}
 
 const renderKitten = (kitten, outputDiv) => {
     const newKitten = document.createElement('div');
@@ -41,6 +42,10 @@ const renderKitten = (kitten, outputDiv) => {
     kittenBreed.innerText = `Breed: ${kitten.breed}`; 
     newKitten.appendChild(kittenBreed);
 
+    const kittenCuteness = document.createElement("p");
+    kittenCuteness.innerText = `Cuteness: ${kitten.cuteness}`; 
+    newKitten.appendChild(kittenCuteness);
+
     outputDiv.appendChild(newKitten);
 }
 
@@ -54,3 +59,33 @@ const getKittenById = () => {
 }
 
 document.querySelector("section#getByIdSection > button").addEventListener('click', getKittenById);
+
+document.querySelector("section#postSection > form").addEventListener('submit', (e) => {
+    e.preventDefault(); // stops the form submitting in the default way
+
+    console.log("THIS: ", this);
+    console.log("BREED: ", this.breed);
+
+    const form = e.target;
+
+    const data = {
+        name: form.name.value,
+        breed: form.breed.value,
+        age: form.age.value,
+        cuteness: form.cuteness.value
+    }
+
+    console.log("DATA: ", data);
+
+    axios.post(`${baseURL}/createKitten`, data)
+    .then((res) => {
+        console.log(res);
+        getAllKittens();
+
+        form.reset(); //resets form
+        form.name.focus(); // selects the name input
+    }).catch(err => console.log(err));
+});
+
+
+getAllKittens();

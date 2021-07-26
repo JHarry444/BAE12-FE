@@ -9,6 +9,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
         integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <style>
+            form > input {
+                display: block;
+            }
+        </style>
 </head>
 
 <body>
@@ -30,6 +35,21 @@
 
                 </div>
             </section>
+        </section>
+        <section id="postSection">
+            <h2>POST</h2>
+            <form>
+                <label for="kittenName">Name:</label>
+                <input type="text" id="kittenName" name="name" required>
+                <label for="kittenBreed">Breed:</label>
+                <input type="text" id="kittenBreed" name="breed" required>
+                <label for="kittenAge">Age:</label>
+                <input type="number" id="kittenAge" name="age" required min="1" max="25">
+                <label for="kittenCute">Cuteness:</label>
+                <input type="number" id="kittenCute" name="cuteness" required min="1" max="25">
+                <button type="reset">Reset</button>
+                <button type="submit">Submit</button>
+            </form>
         </section>
     </main>
     <script src="./js/index.js"></script>

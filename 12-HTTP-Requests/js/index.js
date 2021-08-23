@@ -13,7 +13,6 @@ axios.get(`${baseURL}/`)
 console.log("Have we got a response yet?");
 
 const getAllOutput = document.querySelector("#getAllOutput");
-const getByIdOutput = document.querySelector("#getByIdOutput");
 
 const kittenId = document.querySelector("#kittenId");
 
@@ -28,7 +27,7 @@ const getAllKittens = () => {
     }).catch(err => console.log(err));
 }
 
-const renderKitten = (kitten, outputDiv) => {   
+const renderKitten = (kitten) => {   
     const kittenColumn = document.createElement('div');
     kittenColumn.classList.add("col");
 
@@ -43,21 +42,24 @@ const renderKitten = (kitten, outputDiv) => {
     kittenName.innerText = kitten.name;
     kittenName.classList.add("card-title");
     newKitten.appendChild(kittenName);
-
+    kittenName.addEventListener('click', (e) => updateField(e, kitten.id));
 
     const kittenAge = document.createElement("p");
     kittenAge.innerText = `Age: ${kitten.age}`;
     kittenAge.classList.add("card-text");
+    kittenAge.addEventListener('click', (e) => updateField(e, kitten.id));
     newKitten.appendChild(kittenAge);
 
     const kittenBreed = document.createElement("p");
     kittenBreed.innerText = `Breed: ${kitten.breed}`; 
     kittenBreed.classList.add("card-text");
+    kittenBreed.addEventListener('click', (e) => updateField(e, kitten.id));
     newKitten.appendChild(kittenBreed);
 
     const kittenCuteness = document.createElement("p");
     kittenCuteness.innerText = `Cuteness: ${kitten.cuteness}`; 
     kittenCuteness.classList.add("card-text");
+    kittenCuteness.addEventListener('click', (e) => updateField(e, kitten.id));
     newKitten.appendChild(kittenCuteness);
 
     const deleteButton = document.createElement('button');
@@ -69,7 +71,7 @@ const renderKitten = (kitten, outputDiv) => {
 
     kittenCard.appendChild(newKitten);
 
-    outputDiv.appendChild(kittenColumn);
+    getAllOutput.appendChild(kittenColumn);
 }
 
 const deleteKitten = id => {
@@ -89,7 +91,16 @@ const getKittenById = () => {
     }).catch(err => console.log(err));
 }
 
-document.querySelector("section#getByIdSection > button").addEventListener('click', getKittenById);
+document.querySelector("input#searchName").addEventListener('input', ({target: {value}}) => {
+    console.log("SEARCH: ", value);
+    if (!value) return getAllKittens();
+    axios.get(`${baseURL}/getByName/${value}`)
+        .then(({data}) => {
+            getAllOutput.innerHTML = "";
+            console.log("DATA: ", data);    
+            data.forEach(kitten => renderKitten(kitten));
+        }).catch(err => console.log(err));
+});
 
 document.querySelector("section#postSection > form").addEventListener('submit', (e) => {
     e.preventDefault(); // stops the form submitting in the default way
@@ -114,6 +125,27 @@ document.querySelector("section#postSection > form").addEventListener('submit', 
         form.name.focus(); // selects the name input
     }).catch(err => console.log(err));
 });
+
+const updateField = ({target}, id) => {
+    const replaceInput = document.createElement('input');
+    replaceInput.classList.add("form-control");
+    const placeholder = target.tagName === "H3" ? "Name" :  target.innerText.split(":")[0];
+    replaceInput.placeholder = placeholder;
+
+    replaceInput.addEventListener('keyup', async (e) => {
+        e.preventDefault();
+        if (e.key === "Enter")  {
+            try {
+                const res = await axios.patch(`${baseURL}/patchKitten/${id}?${placeholder.toLowerCase()}=${e.target.value}`);
+                getAllKittens();
+            } catch(err) {
+                console.error(err);
+            }
+        } else if (e.key === "Escape") return getAllKittens();
+    });
+    target.replaceWith(replaceInput);
+    replaceInput.focus();
+}
 
 getAllKittens();
 

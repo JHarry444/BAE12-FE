@@ -19,9 +19,10 @@ axios
         output.appendChild(formed);
 
         const members = document.createElement("section");
+        members.classList.add("membersList");
         const memTitle = document.createElement("h2");
         memTitle.innerText = "Members:";
-        members.appendChild(memTitle);
+        output.appendChild(memTitle);
         output.appendChild(members);
 
         for (let i = 0; i < data.members.length; i++) {
@@ -38,8 +39,16 @@ const renderSquadMember = (squadMember) => {
     memberName.innerText = squadMember.name;
     memberDiv.appendChild(memberName);
 
-    const powers = document.createElement("p");
-    powers.innerText = `Powers: ${squadMember.powers.join(", ")}`;
-    memberDiv.appendChild(powers);
+    const powersTitle = document.createElement("h4");
+    powersTitle.innerText = "Powers:";
+    memberDiv.appendChild(powersTitle);
+    const powerSet = document.createElement("ol");
+    for (let i = 0; i < squadMember.powers.length; i++) {
+        const power = document.createElement("li");
+        power.innerText = squadMember.powers[i];
+        powerSet.appendChild(power);
+    }
+
+    memberDiv.appendChild(powerSet);
     return memberDiv;
 }
